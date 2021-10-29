@@ -23,6 +23,8 @@ async function run() {
 
                 const database = client.db('Asia_Travel_Agency');
                 const servicesCollection = database.collection('services');
+                // Orders Collection:
+                const orderCollection = database.collection('orders');
 
                 // GET All Services API:
                 app.get('/services', async (req, res) => {
@@ -48,6 +50,21 @@ async function run() {
                         const result = await servicesCollection.insertOne(service);
                         console.log(result);
                         res.json(result);
+                })
+
+                // Orders Collection
+                // Add Orders API:
+                app.post('/orders', async (req, res) => {
+                        const order = req.body;
+                        const result = await orderCollection.insertOne(order)
+                        res.json(result);
+                })
+
+                // GET ALL Orders:
+                app.get('/orders', async (req, res) => {
+                        const cursor = orderCollection.find({})
+                        const orders = await cursor.toArray();
+                        res.send(orders)
                 })
         }
         finally {
