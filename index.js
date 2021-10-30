@@ -67,6 +67,23 @@ async function run() {
                         res.send(orders)
                 })
 
+                // Update Status:
+                app.put('/orders/:id', async (req, res) => {
+                        const id = req.params.id;
+                        const updateStatus = req.body;
+                        const filter = { _id: ObjectId(id) }
+                        const options = { upsert: true };
+                        // create a document that sets the plot of the movie
+                        const updateDoc = {
+                                $set: {
+                                        status: 'Approved'
+                                },
+                        };
+                        const result = await orderCollection.updateOne(filter, updateDoc, options);
+                        console.log("Updating User", req)
+                        res.json(result)
+                })
+
                 // Delete Operation:
                 app.get('/orders/:id', async (req, res) => {
                         const id = req.params.id;
@@ -74,6 +91,7 @@ async function run() {
                         const result = await orderCollection.findOne(query)
                         res.json(result);
                 })
+
                 app.delete('/orders/:id', async (req, res) => {
                         const id = req.params.id;
                         const query = { _id: ObjectId(id) };
