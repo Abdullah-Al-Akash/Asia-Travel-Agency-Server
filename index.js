@@ -4,7 +4,6 @@ const cors = require('cors');
 const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config()
 
-
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -112,4 +111,4 @@ app.get('/', async (req, res) => {
 app.listen(port, () => {
         console.log('Successfully Active Asia Travel Agency on Port', port);
 })
-
+// Thank You
